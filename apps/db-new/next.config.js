@@ -12,6 +12,13 @@ const nextConfig = {
     })
     return config
   },
+  redirects: () => [
+    {
+      source: '/visualizer',
+      destination: '/visualizer/new',
+      permanent: true,
+    },
+  ],
 }
 
 module.exports = nextConfig
