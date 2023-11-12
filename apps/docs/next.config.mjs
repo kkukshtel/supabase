@@ -3,6 +3,7 @@ import nextMdx from '@next/mdx'
 import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
 import { remarkCodeHike } from '@code-hike/mdx'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
 
 import withYaml from 'next-plugin-yaml'
 import configureBundleAnalyzer from '@next/bundle-analyzer'
@@ -38,6 +39,24 @@ const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   // reactStrictMode: true,
   // swcMinify: true,
+
+  webpack(config, options) {
+    /** MDX files in docs folder are loaded dynamically on the server, so they need to be included in the .next build dir */
+    config.plugins.push(
+      new CopyWebpackPlugin({
+        patterns: [{ from: "docs/ref", to: "docs/ref" }],
+      })
+    );
+    return config;
+  },
+
+  experimental: {
+    outputFileTracingIncludes: {
+      "/": ["docs/ref/**/*.mdx"],
+    },
+  },
+
+
   basePath: '/docs',
   images: {
     dangerouslyAllowSVG: true,
