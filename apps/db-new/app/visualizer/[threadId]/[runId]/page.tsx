@@ -23,7 +23,7 @@ export default function ThreadPage({ params }: { params: { threadId: string; run
     queryKey: [params.threadId, params.runId],
     refetchInterval: (options) => {
       const data = options.state.data
-      if (data && data.status === 'loading') {
+      if (data && data.status === 'completed') {
         return Infinity
       }
       return 5000
@@ -47,7 +47,6 @@ export default function ThreadPage({ params }: { params: { threadId: string; run
     },
     onSuccess(data) {
       const url = `/visualizer/${data.threadId}/${data.runId}`
-      console.log(url)
       router.push(url)
     },
   })

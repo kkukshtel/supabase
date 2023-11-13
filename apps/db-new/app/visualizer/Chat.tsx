@@ -29,6 +29,9 @@ export const Chat = ({
               </div>
             )
           }
+          if (m.json.length === 0 && m.sql === '') {
+            return null
+          }
           return (
             <div
               key={m.id}
