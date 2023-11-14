@@ -7,6 +7,10 @@ const nextConfig = {
       use: [
         {
           loader: 'nextjs-node-loader',
+          options: {
+            includeWebpackPublicPath: false,
+            outputPath: config.output.path,
+          },
         },
       ],
     })
