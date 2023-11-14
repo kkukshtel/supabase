@@ -14,6 +14,11 @@ const nextConfig = {
   },
   redirects: () => [
     {
+      source: '/',
+      destination: '/visualizer/new',
+      permanent: true,
+    },
+    {
       source: '/visualizer',
       destination: '/visualizer/new',
       permanent: true,
