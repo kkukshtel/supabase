@@ -41,7 +41,7 @@ export default function SchemaDesigner() {
 
       try {
         const pgTables = await parseTables(debouncedSql)
-        setTables(pgTables)
+        setTables(pgTables as any)
       } catch (err) {
         setTables(undefined)
       }
