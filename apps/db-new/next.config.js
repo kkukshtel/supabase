@@ -28,7 +28,6 @@ const nextConfig = {
       permanent: true,
     },
   ],
-  outputFileTracingRoot: true,
 }
 
 module.exports = nextConfig

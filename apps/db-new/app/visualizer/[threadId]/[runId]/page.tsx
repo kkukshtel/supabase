@@ -1,5 +1,6 @@
 'use client'
 import { AssistantMessage, Message, ReadThreadAPIResult } from '@/lib/types'
+import { parseTables } from '@/lib/utils'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { last } from 'lodash'
 import { useRouter } from 'next/navigation'
@@ -11,6 +12,7 @@ import SchemaGraph from '../../SchemaGraph'
 export default function ThreadPage({ params }: { params: { threadId: string; runId: string } }) {
   const router = useRouter()
   const [selectedMessageId, setSelectedMessageId] = useState<string | undefined>(undefined)
+  const [tables, setTables] = useState<any[]>([])
   const { data, isSuccess } = useQuery<ReadThreadAPIResult>({
     queryFn: async () => {
       const response = await fetch(`/api/ai/sql/threads/${params.threadId}/read/${params.runId}`, {
@@ -61,15 +63,19 @@ export default function ThreadPage({ params }: { params: { threadId: string; run
   }
 
   let content = ''
-  let tables: any[] = []
   const selectedMessage = messages.find((m) => m.id === selectedMessageId) as
     | AssistantMessage
     | undefined
   if (selectedMessage) {
-    content = selectedMessage.sql
-    tables = selectedMessage.json
+    content = selectedMessage.sql.replaceAll('```sql', '').replaceAll('```', '')
+    parseTables(content).then((t) => {
+      if (tables.length !== t.length) {
+        setTables(t)
+      }
+    })
   }
 
+  console.log(tables)
   return (
     <main className="flex min-h-screen flex-row items-center justify-between">
       <Chat

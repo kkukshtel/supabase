@@ -48,7 +48,6 @@ export async function parseTables(sql: string) {
       const relationships = statement.tableElts
         .filter((c: any) => c.ColumnDef)
         .filter(({ ColumnDef }: any) => {
-          console.log(JSON.stringify(ColumnDef.constraints))
           return (ColumnDef.constraints || []).find(
             (c: any) => c.Constraint.contype === 'CONSTR_FOREIGN'
           )

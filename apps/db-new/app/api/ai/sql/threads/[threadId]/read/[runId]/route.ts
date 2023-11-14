@@ -1,10 +1,9 @@
-import { parseTables } from '@/lib/utils'
+// import { parseTables } from '@/lib/utils'
 import { compact } from 'lodash'
 import OpenAI from 'openai'
 
 const openai = new OpenAI()
 
-export const runtime = 'edge'
 export async function GET(
   req: Request,
   { params }: { params: { threadId: string; runId: string } }
@@ -31,13 +30,11 @@ export async function GET(
           if (m.content[0].type === 'text') {
             sql = m.content[0].text.value.replaceAll('\n', '')
           }
-          const tables = await parseTables(sql)
           return {
             id: m.id,
             role: 'assistant' as const,
             created_at: m.created_at,
             sql,
-            json: tables,
           }
         }
       })
