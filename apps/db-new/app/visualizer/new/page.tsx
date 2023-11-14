@@ -31,7 +31,13 @@ export default function NewThread() {
 
   return (
     <main className="flex min-h-screen flex-row items-center justify-between">
-      <Chat onSubmit={(v) => mutate(v)} messages={[]} selected={undefined} onSelect={() => {}} />
+      <Chat
+        onSubmit={(v) => mutate(v)}
+        messages={[]}
+        selected={undefined}
+        onSelect={() => {}}
+        loading={false}
+      />
       <CodeEditor content={''} />
       <SchemaGraph tables={[]} />
     </main>
