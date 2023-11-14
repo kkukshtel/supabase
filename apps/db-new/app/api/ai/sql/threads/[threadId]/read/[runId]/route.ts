@@ -2,7 +2,7 @@ import { parseTables } from '@/lib/utils'
 import { compact } from 'lodash'
 import OpenAI from 'openai'
 
-const openai = new OpenAI({ apiKey: 'XXXX' })
+const openai = new OpenAI()
 
 export async function GET(
   req: Request,

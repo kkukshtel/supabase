@@ -1,6 +1,6 @@
 import OpenAI from 'openai'
 
-const openai = new OpenAI({ apiKey: 'XXXX' })
+const openai = new OpenAI()
 
 export async function POST(req: Request) {
   if (!req.body) {
